@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+[functions]
+  directory = "netlify/functions"
+# Explicit route to the Pexels proxy function — do not rely solely on the
+# function's own `config.path` export, since that convention's support can
+# vary by Netlify build image. This redirect guarantees /api/* reaches the
+# function even if that declarative routing doesn't take effect.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/pexels/:splat"
+  status = 200
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
